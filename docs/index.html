@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>enterprise-architecture — a Claude Code skill</title>
+<meta name="description" content="Unified enterprise & software architecture Claude Code skill: C4+Structurizr, ArchiMate, TOGAF ADM, arc42+ADR. With live eval examples." />
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --line:#2a3340;
+    --fg:#e6edf3; --muted:#9aa7b4; --accent:#4ea1ff; --accent2:#7ee787;
+    --crit:#ff6b6b; --major:#ffa657; --minor:#e3c544; --sug:#6cb6ff;
+    --radius:14px; --max:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code,pre{font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+  header.hero{padding:72px 20px 48px;text-align:center;
+    background:radial-gradient(1200px 400px at 50% -10%,rgba(78,161,255,.18),transparent 70%);
+    border-bottom:1px solid var(--line)}
+  .badge{display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--accent2);border:1px solid var(--line);border-radius:999px;padding:4px 12px;margin-bottom:18px}
+  h1{font-size:clamp(30px,5vw,46px);margin:.1em 0 .2em;line-height:1.1}
+  h1 .mono{font-family:monospace;color:var(--accent)}
+  .tagline{color:var(--muted);font-size:clamp(16px,2.4vw,20px);max-width:720px;margin:0 auto 26px}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+  .btn{display:inline-block;padding:11px 20px;border-radius:10px;font-weight:600;border:1px solid var(--line)}
+  .btn.primary{background:var(--accent);color:#06223f;border-color:transparent}
+  .btn.ghost{background:var(--panel);color:var(--fg)}
+  section{padding:54px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:clamp(22px,3.4vw,30px);margin:0 0 6px}
+  .lead{color:var(--muted);margin:0 0 26px;max-width:760px}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:820px){.g2,.g4{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .card h3{margin:0 0 6px;font-size:18px}
+  .card .k{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent2);margin-bottom:8px}
+  .card p{margin:0;color:var(--muted);font-size:14.5px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;overflow:hidden;border-radius:var(--radius)}
+  th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:var(--fg)}
+  td{background:var(--panel)}
+  .pill{display:inline-block;padding:1px 9px;border-radius:999px;font-size:12px;font-weight:600}
+  .pill.win{background:rgba(126,231,135,.15);color:var(--accent2)}
+  .pill.mid{background:rgba(227,197,68,.15);color:var(--minor)}
+  .example{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:0;overflow:hidden;margin-bottom:26px}
+  .example .head{padding:16px 20px;border-bottom:1px solid var(--line);background:var(--panel2)}
+  .example .head h3{margin:0 0 4px;font-size:18px}
+  .example .prompt{color:var(--muted);font-size:14px;font-style:italic}
+  .example .body{padding:20px}
+  .mermaid{background:#fff;border-radius:10px;padding:14px;margin:14px 0;overflow:auto}
+  pre.codeblock{background:#0b0f14;border:1px solid var(--line);border-radius:10px;padding:14px;
+    overflow:auto;font-size:13px;line-height:1.5}
+  .scoreline{display:flex;gap:18px;flex-wrap:wrap;margin:6px 0 0;font-size:13.5px;color:var(--muted)}
+  details{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px}
+  summary{cursor:pointer;color:var(--accent);font-weight:600}
+  .sev{font-weight:700}
+  .sev.c{color:var(--crit)} .sev.m{color:var(--major)} .sev.n{color:var(--minor)} .sev.s{color:var(--sug)}
+  .note{background:var(--panel2);border-left:3px solid var(--accent);border-radius:8px;
+    padding:12px 16px;color:var(--muted);font-size:14px;margin-top:18px}
+  footer{padding:38px 20px;text-align:center;color:var(--muted);font-size:14px}
+  ul.tight{margin:8px 0 0;padding-left:20px;color:var(--muted);font-size:14.5px}
+  ul.tight li{margin:4px 0}
+  .kbd{font-family:monospace;background:#0b0f14;border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:13px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">Claude Code · Agent Skill · MIT</span>
+    <h1><span class="mono">enterprise-architecture</span></h1>
+    <p class="tagline">One Claude Code skill that unifies four open-source architecture
+      standards — <strong>C4 + Structurizr</strong>, <strong>ArchiMate</strong>,
+      <strong>TOGAF ADM</strong>, and <strong>arc42 + ADRs</strong> — to diagram, document,
+      review, and model architecture as code.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/gauravs19/enterprise-architecture">View on GitHub →</a>
+      <a class="btn ghost" href="#evals">See live examples</a>
+    </div>
+  </div>
+</header>
+
+<section id="why">
+  <div class="wrap">
+    <h2>Why it exists</h2>
+    <p class="lead">The open-source ecosystem has good single-purpose skills — C4+ArchiMate
+      plugins, arc42 toolkits, ADR generators. But <strong>none unify all four frameworks,
+      and none cover TOGAF or architecture review</strong>. This skill fills that gap and
+      keeps one traceable model under every diagram, doc, and decision.</p>
+    <div class="grid g4">
+      <div class="card"><div class="k">C4 + Structurizr</div><h3>How is <em>this system</em> built?</h3><p>Context · Container · Component diagrams as code.</p></div>
+      <div class="card"><div class="k">ArchiMate 3.x</div><h3>How does the <em>enterprise</em> fit?</h3><p>Capabilities → applications → technology, across systems.</p></div>
+      <div class="card"><div class="k">TOGAF ADM</div><h3>How do we <em>deliver</em> change?</h3><p>10-phase method, roadmaps, portfolio (TIME).</p></div>
+      <div class="card"><div class="k">arc42 + ADR/MADR</div><h3>How do we <em>write it down</em>?</h3><p>System docs and decision records, docs-as-code.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="modes">
+  <div class="wrap">
+    <h2>Four modes</h2>
+    <p class="lead">The skill routes any architectural request to the right framework at the right altitude.</p>
+    <div class="grid g2">
+      <div class="card"><div class="k">Mode 1</div><h3>Diagram</h3><p>C4 / Structurizr DSL / Mermaid / PlantUML — Context → Container → Component, with diagram hygiene baked in.</p></div>
+      <div class="card"><div class="k">Mode 2</div><h3>Document</h3><p>arc42 sections (LEAN / ESSENTIAL / THOROUGH) and ADR/MADR decision records.</p></div>
+      <div class="card"><div class="k">Mode 3</div><h3>Review / assess</h3><p>ISO/IEC 25010 quality attributes + EA principles → severity-graded findings + a verdict.</p></div>
+      <div class="card"><div class="k">Mode 4</div><h3>Model the enterprise</h3><p>Capability → app → technology with realization links; TOGAF ADM structure & portfolio rationalization.</p></div>
+    </div>
+    <div class="note">A stable URN-style ID scheme — <span class="kbd">ea:org:system:kind:name</span> —
+      keeps one model under everything, plus a <span class="kbd">scripts/ea_lint.py</span>
+      cross-artifact consistency checker.</div>
+  </div>
+</section>
+
+<section id="evals">
+  <div class="wrap">
+    <h2>Eval results</h2>
+    <p class="lead">Each test prompt was run twice — once <strong>with the skill</strong>,
+      once as a <strong>baseline</strong> — and graded against objective assertions. The
+      examples below are the actual, unedited skill outputs.</p>
+
+    <table>
+      <thead><tr><th>Test case</th><th>With skill</th><th>Baseline</th><th>What the skill changed</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>C4 diagram</strong><br><span class="prompt">order checkout service</span></td>
+          <td><span class="pill win">5 / 5</span></td>
+          <td><span class="pill mid">3 / 5</span></td>
+          <td>Real C4 notation (Context + Container) <em>and</em> a Structurizr DSL source-of-truth + legend. Baseline drew a generic flowchart and only <em>offered</em> C4 as a follow-up.</td>
+        </tr>
+        <tr>
+          <td><strong>ADR</strong><br><span class="prompt">messaging system choice</span></td>
+          <td><span class="pill win">5 / 5</span></td>
+          <td><span class="pill mid">4 / 5</span></td>
+          <td>Correct MADR format (status, drivers, options, consequences). Baseline wrote solid analysis but not in ADR format.</td>
+        </tr>
+        <tr>
+          <td><strong>Review</strong><br><span class="prompt">Django monolith</span></td>
+          <td><span class="pill win">6 / 6</span></td>
+          <td><span class="pill win">6 / 6*</span></td>
+          <td>Both strong. *The skill is installed globally, so the baseline agent discovered &amp; used it — not a clean baseline.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note"><strong>Method &amp; honesty note:</strong> runs used independent
+      Claude Code subagents. Because installed skills are globally discoverable, a baseline
+      agent can find and use the skill anyway (it did on the review case). So the measured
+      gap is a <em>conservative lower bound</em> on the skill's effect, not an inflated one.</div>
+
+    <h2 style="margin-top:40px">Example 1 — C4 diagram (rendered live)</h2>
+    <div class="example">
+      <div class="head">
+        <h3>Mode 1 · Diagram · C4 model</h3>
+        <div class="prompt">“I'm building an order checkout service. Customers use a React SPA that talks to a Spring Boot API. The API stores orders in PostgreSQL, publishes order events to Kafka, and charges cards via Stripe. Draw me the architecture diagram.”</div>
+        <div class="scoreline"><span>✔ names C4 + levels</span><span>✔ all 5 elements</span><span>✔ externals tagged</span><span>✔ labelled relationships</span><span>✔ Structurizr source-of-truth</span></div>
+      </div>
+      <div class="body">
+        <p><strong>Level 1 — System Context</strong></p>
+        <pre class="mermaid">
+C4Context
+    title System Context — Order Checkout Service
+    Person(customer, "Customer", "Places and pays for orders")
+    System(checkout, "Order Checkout Service", "Cart, order placement and card payment")
+    System_Ext(stripe, "Stripe", "Card payment processing")
+    System_Ext(consumer, "Downstream Consumers", "Services subscribing to order events")
+    Rel(customer, checkout, "Places &amp; pays for orders", "HTTPS")
+    Rel(checkout, stripe, "Charges cards via", "REST/HTTPS")
+    Rel(checkout, consumer, "Publishes order events to", "Kafka")
+        </pre>
+        <p><strong>Level 2 — Container</strong></p>
+        <pre class="mermaid">
+C4Container
+    title Container Diagram — Order Checkout Service
+    Person(customer, "Customer", "Places and pays for orders")
+    System_Boundary(checkout, "Order Checkout Service") {
+        Container(spa, "Checkout SPA", "React", "Cart, checkout &amp; payment UI")
+        Container(api, "Checkout API", "Spring Boot", "Order orchestration, persistence, payment, events")
+        ContainerDb(db, "Orders Database", "PostgreSQL", "Stores orders and order state")
+        ContainerQueue(kafka, "Order Event Bus", "Kafka", "Publishes order lifecycle events")
+    }
+    System_Ext(stripe, "Stripe", "Card payment processing")
+    System_Ext(consumer, "Downstream Consumers", "Subscribe to order events")
+    Rel(customer, spa, "Uses", "HTTPS")
+    Rel(spa, api, "Makes API calls to", "JSON/HTTPS")
+    Rel(api, db, "Reads from &amp; writes to", "JDBC")
+    Rel(api, kafka, "Publishes order events to", "Kafka protocol")
+    Rel(api, stripe, "Charges cards via", "REST/HTTPS")
+    Rel(kafka, consumer, "Delivers order events to", "Kafka protocol")
+        </pre>
+        <details>
+          <summary>Show the Structurizr DSL source-of-truth the skill also produced</summary>
+<pre class="codeblock">workspace "Order Checkout" "Order checkout service: cart, orders, payments" {
+    model {
+        customer = person "Customer" "Places and pays for orders"
+        checkout = softwareSystem "Order Checkout Service" "Cart, order placement and card payment" {
+            spa   = container "Checkout SPA" "Cart, checkout &amp; payment UI" "React"
+            api   = container "Checkout API" "Order orchestration, persistence, payment, events" "Spring Boot"
+            db    = container "Orders Database" "Stores orders and order state" "PostgreSQL" { tags "Database" }
+            kafka = container "Order Event Bus" "Publishes order lifecycle events" "Kafka" { tags "Queue" }
+            spa -> api   "Makes API calls to" "JSON/HTTPS"
+            api -> db    "Reads from &amp; writes to" "JDBC"
+            api -> kafka "Publishes order events to" "Kafka protocol"
+        }
+        stripe   = softwareSystem "Stripe" "Card payment processing" { tags "External" }
+        consumer = softwareSystem "Downstream Consumers" "Subscribe to order events" { tags "External" }
+        customer -> spa "Uses" "HTTPS"
+        api -> stripe "Charges cards via" "REST/HTTPS"
+        kafka -> consumer "Delivers order events to" "Kafka protocol"
+    }
+    views {
+        systemContext checkout "Context" { include * ; autolayout lr }
+        container checkout "Containers" { include * ; autolayout lr }
+        styles {
+            element "Person"   { shape person ; background #08427b ; color #ffffff }
+            element "External" { background #999999 ; color #ffffff }
+            element "Database" { shape cylinder }
+            element "Queue"    { shape pipe }
+        }
+    }
+}</pre>
+        </details>
+        <p style="margin-top:14px"><a href="examples/01-c4-diagram.with-skill.md">Full output ↗</a> &nbsp;·&nbsp; <a href="examples/01-c4-diagram.baseline.md">Baseline for comparison ↗</a></p>
+      </div>
+    </div>
+
+    <h2 style="margin-top:24px">Example 2 — Architecture Decision Record</h2>
+    <div class="example">
+      <div class="head">
+        <h3>Mode 2 · Document · MADR</h3>
+        <div class="prompt">“We need to pick a messaging system for our order events — Kafka, RabbitMQ, or AWS SNS/SQS. The team has no Kafka ops experience but we expect ~10k events/sec and want event replay. Write up the decision.”</div>
+        <div class="scoreline"><span>✔ MADR structure + status</span><span>✔ decision drivers</span><span>✔ all 3 options w/ pros &amp; cons</span><span>✔ justified outcome</span><span>✔ trade-offs recorded</span></div>
+      </div>
+      <div class="body">
+        <p>The skill recognised this as <em>one architecturally-significant decision</em>
+          and produced a proper MADR — title, status, decision drivers, three options with
+          pros/cons, a justified outcome, and consequences including the trade-offs accepted:</p>
+        <pre class="codeblock"># 0001. Use AWS SNS/SQS for order events
+
+- Status: proposed
+- Date: 2026-06-18
+- Tags: messaging, order-events, eventing
+
+## Decision Drivers
+- Throughput: ~10k events/sec with headroom
+- Event replay: re-read history from an arbitrary point
+- Operational burden: team has no Kafka ops experience
+- Time-to-value; ordering &amp; delivery semantics; cost; reversibility
+
+## Considered Options
+1. Apache Kafka (self-managed / MSK / Confluent)
+2. RabbitMQ (with streams plugin)
+3. AWS SNS + SQS (+ Kinesis / EventBridge Archive for replay)
+
+## Decision Outcome
+Chosen: "AWS SNS/SQS with a managed log for replay where needed" —
+best fit for a team with no Kafka ops while still meeting throughput
+and giving a credible replay story without operating brokers.
+
+### Consequences
+- Good: minimal ops; elastic &amp; managed; fast time-to-value; pay-per-use
+- Bad: replay isn't uniform (needs Kinesis layer); AWS lock-in; FIFO quotas to verify
+- Neutral: requires idempotent consumers &amp; an explicit ordering key (orderId)</pre>
+        <p style="margin-top:14px"><a href="examples/02-adr.with-skill.md">Full ADR ↗</a> &nbsp;·&nbsp; <a href="examples/02-adr.baseline.md">Baseline for comparison ↗</a></p>
+      </div>
+    </div>
+
+    <h2 style="margin-top:24px">Example 3 — Architecture review</h2>
+    <div class="example">
+      <div class="head">
+        <h3>Mode 3 · Review / assess</h3>
+        <div class="prompt">“Review our architecture: a single Django monolith on one EC2 instance, one PostgreSQL with no replica, secrets in committed settings.py, no caching, a synchronous third-party email call in the request path, no logging/metrics, ~50k DAU. Is this design sound?”</div>
+        <div class="scoreline"><span>✔ explicit verdict</span><span>✔ severity-graded</span><span>✔ evidence + fix per finding</span><span>✔ balanced + prioritized</span></div>
+      </div>
+      <div class="body">
+        <p><strong>Verdict:</strong> <em>Needs revision</em> — the monolith is the right
+          altitude for 50k DAU; the problems are security &amp; operational hygiene, not the
+          decomposition. Findings, abbreviated:</p>
+        <ul class="tight">
+          <li><span class="sev c">🔴 Critical</span> — committed secrets in <code>settings.py</code> → rotate now, move to Secrets Manager/SSM, purge history, add a pre-commit scanner.</li>
+          <li><span class="sev c">🔴 Critical</span> — single EC2 instance = SPOF → ≥2 instances across ≥2 AZs behind an ALB in an ASG.</li>
+          <li><span class="sev c">🔴 Critical</span> — single un-replicated Postgres → RDS/Aurora Multi-AZ + tested PITR backups.</li>
+          <li><span class="sev m">🟠 Major</span> — no observability → structured logs + RED metrics + Sentry + one alert.</li>
+          <li><span class="sev m">🟠 Major</span> — synchronous email in request path → move to a Celery/SQS queue with retries &amp; timeouts.</li>
+          <li><span class="sev m">🟠 Major</span> — no caching &amp; no stated SLOs → ElastiCache for hot reads; write down availability/latency/RPO/RTO.</li>
+          <li><span class="sev s">🔵 Suggestion</span> — <em>stay a monolith</em>; record the infra decisions as ADRs (Mode 2); draw the target-state C4 diagram (Mode 1).</li>
+        </ul>
+        <p style="margin-top:14px"><a href="examples/03-review.with-skill.md">Full review ↗</a> &nbsp;·&nbsp; <a href="examples/03-review.baseline.md">Baseline for comparison ↗</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2>Install</h2>
+    <p class="lead">Clone into your Claude Code skills directory — it's discovered automatically.</p>
+    <pre class="codeblock">git clone https://github.com/gauravs19/enterprise-architecture \
+  ~/.claude/skills/enterprise-architecture</pre>
+    <p>Then just ask, in your own words:</p>
+    <ul class="tight">
+      <li>“draw the container diagram for this service”</li>
+      <li>“write an ADR for choosing Kafka”</li>
+      <li>“review this architecture”</li>
+      <li>“map our business capabilities to our apps”</li>
+    </ul>
+  </div>
+</section>
+
+<section id="credit">
+  <div class="wrap">
+    <h2>Credit / prior art</h2>
+    <p class="lead">Patterns studied and adapted from the open-source community:</p>
+    <ul class="tight">
+      <li><a href="https://github.com/kristjanakkermann/archimate-c4-plugin">archimate-c4-plugin</a> — URN artifact registry, Mermaid C4/ArchiMate generation</li>
+      <li><a href="https://github.com/MSiccDev/arc42-toolkit">arc42-toolkit</a> — per-section discover→generate→validate loop, consistency linting, a dedicated review skill</li>
+      <li><a href="https://github.com/bitsmuggler/arc42-c4-software-architecture-documentation-example">bitsmuggler/arc42-c4 example</a> — Structurizr-DSL-as-source-of-truth + ADR docs-as-code</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  Built from scratch with the Claude Code <span class="kbd">skill-creator</span> ·
+  MIT licensed · <a href="https://github.com/gauravs19/enterprise-architecture">github.com/gauravs19/enterprise-architecture</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({ startOnLoad:true, theme:'neutral', securityLevel:'loose' });
+</script>
+</body>
+</html>

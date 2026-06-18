@@ -1,0 +1,29 @@
+{
+  "skill_name": "enterprise-architecture",
+  "evals": [
+    {
+      "id": 0,
+      "name": "c4-container-diagram",
+      "prompt": "I'm building an order checkout service. Customers use a React single-page app that talks to a Spring Boot API. The API stores orders in PostgreSQL, publishes order events to Kafka, and charges cards via Stripe. Draw me the architecture diagram.",
+      "expected_output": "A C4 model diagram (ideally System Context + Container) as code (Structurizr DSL or Mermaid C4), showing the SPA, API, PostgreSQL, Kafka and external Stripe/customer, with labelled relationships. Should name the framework/level and follow C4 hygiene (externals shown, relationships labelled).",
+      "files": [],
+      "assertions": []
+    },
+    {
+      "id": 1,
+      "name": "adr-messaging-choice",
+      "prompt": "We need to pick a messaging system for our order events. We're weighing Kafka, RabbitMQ, and AWS SNS/SQS. The team has no Kafka ops experience but we expect ~10k events/sec and want event replay. Write up the decision.",
+      "expected_output": "An ADR/MADR-formatted decision record: title, status, context/problem, decision drivers, the three considered options with pros/cons, a chosen outcome justified against the drivers, and consequences (good/bad). Captures trade-offs, not just the answer.",
+      "files": [],
+      "assertions": []
+    },
+    {
+      "id": 2,
+      "name": "architecture-review",
+      "prompt": "Can you review our architecture? It's a single Django monolith on one EC2 instance, talking to one PostgreSQL instance with no replica. Secrets live in settings.py committed to the repo. There's no caching, and we call a third-party email API synchronously inside the request path. No logging or metrics. We have about 50k daily active users. Is this design sound?",
+      "expected_output": "A structured architecture review: a verdict, severity-categorized findings (the plaintext secrets = Critical, the DB single-point-of-failure + synchronous email call + no observability = Major, etc.), each with evidence and a concrete fix, plus what's done well and prioritized follow-ups.",
+      "files": [],
+      "assertions": []
+    }
+  ]
+}

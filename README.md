@@ -5,6 +5,8 @@ grounded in four open-source standards instead of one. It helps Claude produce a
 work the way the standards intend it: **diagrams as code, documentation as code, decisions
 as records, and one traceable model underneath.**
 
+🌐 **Live site & eval examples:** https://gauravs19.github.io/enterprise-architecture/
+
 | Framework | Answers | Used for |
 |---|---|---|
 | **C4 model + Structurizr DSL** | "How is *this system* built?" | Context / Container / Component diagrams |
